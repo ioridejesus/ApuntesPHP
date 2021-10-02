@@ -637,23 +637,59 @@ function TratarNumeroText($pasar_array)
 
 #------------------------------------------- Solo numero y punto solo punto y numero  --------------------------------------------------------------------------------
 
-function Dinero($monto_total)
+function SoloNumeroDecimalFloat($monto_total)
 {
 
 	$monto_total = trim($monto_total);
+	$ConcatNumero = "";
+	
+	if ($monto_total == "") {
 
-	$solonumero = "";
-	$string_array = str_split($monto_total);
-	unset($solonumero);
+		$solonumero = 0;
 
-	foreach ($string_array as $key_dinero => $value_dinero) {
+	}else {
 
-		if ($value_dinero == "0" || $value_dinero == "1" || $value_dinero == "2" || $value_dinero == "3" || $value_dinero == "4" || $value_dinero == "5" || $value_dinero == "6" || $value_dinero == "7" || $value_dinero == "8" || $value_dinero == "9" || $value_dinero == ".") {
+		$string_array = str_split($monto_total);
 
-			$solonumero .= $value_dinero;
+		foreach ($string_array as $key_dinero => $value_dinero) {
+
+			if ($value_dinero == "0" || $value_dinero == "1" || $value_dinero == "2" || $value_dinero == "3" || $value_dinero == "4" || $value_dinero == "5" || $value_dinero == "6" || $value_dinero == "7" || $value_dinero == "8" || $value_dinero == "9" || $value_dinero == ".") {
+	
+				$ConcatNumero .= $value_dinero;
+			}
+		}
+
+		$VerDecimales = explode(".", $ConcatNumero);
+		$ContadorDecimales = count($VerDecimales);
+		
+		if ($ContadorDecimales <= 1) {
+		
+			$solonumero = ($ConcatNumero == "") ? 0 : $ConcatNumero;
+
+		}else {
+
+			if ($VerDecimales[0] == "" && $VerDecimales[1] =="") {
+				
+				$solonumero = 0;
+
+			} else if(is_numeric($VerDecimales[0]) && (is_numeric($VerDecimales[1]) && $VerDecimales[1] != "")) {
+				
+				$solonumero = "$VerDecimales[0].$VerDecimales[1]";
+			
+			}elseif (is_numeric($VerDecimales[0]) && $VerDecimales[1] == "") {
+				
+				$solonumero = $VerDecimales[0];
+
+			}else if ($VerDecimales[0] == "" && is_numeric($VerDecimales[1])) {
+				
+				$solonumero = ".$VerDecimales[1]";
+
+			}else {
+				$solonumero = 0;
+			}
 		}
 	}
-
+	
 	return $solonumero;
 }
 
