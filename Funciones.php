@@ -516,6 +516,9 @@ function HoyCirculasCDMX($matricula, $engomado)
 
 	$matricula = trim($matricula);
 	$engomado = trim($engomado);
+	$engomado = strtolower($engomado);
+	$engomado = mb_strtolower($engomado);
+	
 
 	$var_matricula_numero = "";
 	$result_validar = "";
@@ -542,34 +545,36 @@ function HoyCirculasCDMX($matricula, $engomado)
 
 		$primer_numero = 5;
 		$segundo_numero = 6;
-		$color_restringido = "AMARILLO";
+		$color_restringido = "amarillo";
 
 	} else if ($fecha_actual_hoy == "Tuesday") {
 
 		$primer_numero = 7;
 		$segundo_numero = 8;
-		$color_restringido = "ROSA";
+		$color_restringido = "rosa";
 
 	} else if ($fecha_actual_hoy == "Wednesday") {
 
 		$primer_numero = 3;
 		$segundo_numero = 4;
-		$color_restringido = "ROJO";
+		$color_restringido = "rojo";
 
 	} else if ($fecha_actual_hoy == "Thursday") {
 
 		$primer_numero = 1;
 		$segundo_numero = 2;
-		$color_restringido = "VERDE";
+		$color_restringido = "verde";
 
 	} else if ($fecha_actual_hoy == "Friday") {
 
 		$primer_numero = 9;
 		$segundo_numero = 0;
-		$color_restringido = "AZUL";
+		$color_restringido = "azul";
 
 	} else if ($fecha_actual_hoy == "Saturday") {
+
 	} else if ($fecha_actual_hoy == "Sunday") {
+
 	}
 
 	#---------Operaciones POR DIA ----------------------------
@@ -603,6 +608,7 @@ function HoyCirculasCDMX($matricula, $engomado)
 			if ($engomado == $color_restringido) {
 
 				$result_validar .= "Hoy NO circula por <b>engomado</b><br>";
+
 			} elseif ($engomado == "") {
 
 				$result_validar .= "Puedes Circular con permiso<br>";
@@ -611,6 +617,7 @@ function HoyCirculasCDMX($matricula, $engomado)
 	} elseif ($ultimo_digito == "") {
 
 		$result_validar .= "Pendiente<br>";
+
 	} else {
 
 		$result_validar .= "Pendiente<br>";
@@ -625,35 +632,44 @@ function VerificacionVehicular($engomado)
 {
 
 	$engomado = trim($engomado);
+	$engomado = strtolower($engomado);
+	$engomado = mb_strtolower($engomado);
+	
 	$mes_actual_hoy = date('n');
 	$anio_siguiente = date('Y') + 1;
 
 
-	if ($engomado == "" || is_numeric($engomado) || $engomado == "Pendiente" || $engomado == "PENDIENTE" || $engomado == "POR DEFINIR") {
+	if ($engomado == "" || is_numeric($engomado) || $engomado == "Pendiente" || $engomado == "PENDIENTE" || $engomado == "POR DEFINIR" || $engomado == "pendiente") {
 
 		$mensaje_verificacion = "No hay engomado para mostrar información";
+
 	} elseif ($engomado == "N/A" || $engomado == "NA") {
 
 		$mensaje_verificacion = "No aplica verificación";
+
 	} else {
 
-		if ($engomado == "AMARILLO") {
+		if ($engomado == "amarillo") {
 
 			if ($mes_actual_hoy >= 1 and $mes_actual_hoy <= 2) {
 
 				$mensaje_verificacion = "Próxima verificación <b>Enero - Febrero</b>";
+
 			} else if ($mes_actual_hoy >= 3 and $mes_actual_hoy <= 8) {
 
 				$mensaje_verificacion = "Próxima verificación <b>Julio - Agosto</b>";
+			
 			} else {
 
 				$mensaje_verificacion = "Próxima verificación <b>Enero - Febrero</b> de $anio_siguiente";
+			
 			}
-		} else if ($engomado == "ROSA") {
+		} else if ($engomado == "rosa") {
 
 			if ($mes_actual_hoy >= 1 and $mes_actual_hoy <= 3) {
 
 				$mensaje_verificacion = "Próxima verificación <b>Febrero - Marzo</b>";
+			
 			} else if ($mes_actual_hoy >= 4 and $mes_actual_hoy <= 9) {
 
 				$mensaje_verificacion = "Próxima verificación <b>Agosto - Septiembre</b>";
@@ -661,7 +677,7 @@ function VerificacionVehicular($engomado)
 
 				$mensaje_verificacion = "Próxima verificación <b>Febrero - Marzo</b> de $anio_siguiente";
 			}
-		} else if ($engomado == "ROJO") {
+		} else if ($engomado == "rojo") {
 
 			if ($mes_actual_hoy >= 1 and $mes_actual_hoy <= 4) {
 
@@ -673,23 +689,27 @@ function VerificacionVehicular($engomado)
 
 				$mensaje_verificacion = "Próxima verificación <b>Marzo - Abril</b> de $anio_siguiente";
 			}
-		} else if ($engomado == "VERDE") {
+		} else if ($engomado == "verde") {
 
 			if ($mes_actual_hoy >= 1 and $mes_actual_hoy <= 5) {
 
 				$mensaje_verificacion = "Próxima verificación <b>Abril - Mayo</b>";
+			
 			} else if ($mes_actual_hoy >= 6 and $mes_actual_hoy <= 11) {
 
 				$mensaje_verificacion = "Próxima verificación <b>Octubre - Noviembre</b>";
+			
 			} else {
 
 				$mensaje_verificacion = "Próxima verificación <b>Abril - Mayo</b> de $anio_siguiente";
+			
 			}
-		} elseif ($engomado == "AZUL") {
+		} elseif ($engomado == "azul") {
 
 			if ($mes_actual_hoy >= 1 && $mes_actual_hoy <= 6) {
 
 				$mensaje_verificacion = "Próxima verificación <b>Mayo - Junio</b>";
+			
 			} else {
 
 				$mensaje_verificacion = "Próxima verificación <b>Noviembre - Diciembre</b>";
