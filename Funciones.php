@@ -517,6 +517,9 @@ function HoyCirculasCDMX($matricula, $engomado)
 	$matricula = trim($matricula);
 	$engomado = trim($engomado);
 
+	$var_matricula_numero = "";
+	$result_validar = "";
+
 	#---------TRATAR MATRICULA SOLO NUMEROS----------------------------
 
 	$arr_matricula = str_split($matricula);
@@ -771,6 +774,7 @@ function Tratar_Array($name_array)
 function TratarNumeroText($pasar_array)
 {
 
+	$valor_array = "";
 	foreach ($pasar_array as $key_pasar => $value_pasar) {
 
 		$valor_array .= (is_numeric($value_pasar)) ? "" : $value_pasar;
